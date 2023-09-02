@@ -1,0 +1,101 @@
+package com.essycynthia.cocktailapp.data.remote.dto
+
+import android.os.Parcelable
+import com.essycynthia.cocktailapp.domain.model.DrinkDetail
+import com.google.gson.annotations.SerializedName
+import kotlinx.parcelize.Parcelize
+import kotlinx.parcelize.RawValue
+
+@Parcelize
+data class DrinkDetailDto(
+    val dateModified: String,
+    val idDrink: String,
+    val strAlcoholic: String,
+    val strCategory: String,
+    val strCreativeCommonsConfirmed: String,
+    val strDrink: String,
+    val strDrinkAlternate:@RawValue Any?,
+    val strDrinkThumb: String,
+    val strGlass: String,
+    val strIBA:@RawValue Any?,
+    val strImageAttribution:@RawValue Any?,
+    val strImageSource: @RawValue Any,
+    val strIngredient1: String,
+    val strIngredient10:@RawValue Any?,
+    val strIngredient11:@RawValue Any?,
+    val strIngredient12:@RawValue Any?,
+    val strIngredient13:@RawValue Any?,
+    val strIngredient14:@RawValue Any?,
+    val strIngredient15:@RawValue Any?,
+    val strIngredient2: String,
+    val strIngredient3: @RawValue Any?,
+    val strIngredient4: @RawValue Any?,
+    val strIngredient5:  @RawValue Any?,
+    val strIngredient6: @RawValue Any?,
+    val strIngredient7: @RawValue Any?,
+    val strIngredient8: @RawValue Any?,
+    val strIngredient9: @RawValue Any?,
+    val strInstructions: String,
+    val strInstructionsDE: String,
+    val strInstructionsES: @RawValue Any?,
+    val strInstructionsFR: @RawValue Any?,
+    val strInstructionsIT: String,
+    @SerializedName("strInstructionsZH-HANS")
+    val instructionsZhHans: @RawValue Any?,
+    @SerializedName("strInstructionsZH-HANT")
+    val instructionsZhHant: @RawValue Any?,
+    val strMeasure1: String,
+    val strMeasure10: @RawValue Any?,
+    val strMeasure11: @RawValue Any?,
+    val strMeasure12: @RawValue Any?,
+    val strMeasure13: @RawValue Any?,
+    val strMeasure14: @RawValue Any?,
+    val strMeasure15: @RawValue Any?,
+    val strMeasure2: String,
+    val strMeasure3: @RawValue Any?,
+    val strMeasure4: @RawValue Any?,
+    val strMeasure5: @RawValue Any?,
+    val strMeasure6: @RawValue Any?,
+    val strMeasure7: @RawValue Any?,
+    val strMeasure8: @RawValue Any?,
+    val strMeasure9: @RawValue Any?,
+    val strTags: @RawValue Any?,
+    val strVideo: @RawValue Any?
+) : Parcelable
+fun DrinkDetailDto.toDrinkDetail() : DrinkDetail{
+    return DrinkDetail(
+        idDrink = idDrink,
+        strIngredient1 = strIngredient1,
+        strIngredient2 = strIngredient2,
+        strIngredient3 = strIngredient3,
+        strIngredient4 = strIngredient4,
+        strIngredient5 = strIngredient5,
+        strIngredient6 = strIngredient6,
+        strIngredient7 = strIngredient7,
+        strIngredient8 = strIngredient8,
+        strIngredient9 = strIngredient9,
+        strIngredient10 = strIngredient10,
+        strIngredient11 = strIngredient11,
+        strIngredient12 = strIngredient12,
+        strIngredient13 = strIngredient13,
+        strIngredient14 = strIngredient14,
+        strIngredient15 = strIngredient15,
+        strInstructions = strInstructions,
+        strMeasure1 = strMeasure1,
+        strMeasure2 = strMeasure2,
+        strMeasure3 = strMeasure3,
+        strMeasure4 = strMeasure4,
+        strMeasure5 = strMeasure5,
+        strMeasure6 = strMeasure6,
+        strMeasure7 = strMeasure7,
+        strMeasure8 = strMeasure8,
+        strMeasure9 = strMeasure9,
+        strMeasure10 = strMeasure10,
+        strMeasure11 = strMeasure11,
+        strMeasure12 = strMeasure12,
+        strMeasure13 = strMeasure13,
+        strMeasure14 = strMeasure14,
+        strMeasure15 = strMeasure15,
+    )
+
+}
