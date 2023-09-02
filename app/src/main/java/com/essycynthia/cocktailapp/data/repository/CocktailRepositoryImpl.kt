@@ -8,27 +8,27 @@ import javax.inject.Inject
 
 class CocktailRepositoryImpl @Inject constructor(val api: CocktailApi) : CocktailRepository {
     override suspend fun getVodkaCocktails(): List<DrinkDto> {
-        return api.getVodkaCocktails()
+        return api.getVodkaCocktails().drinks
     }
 
     override suspend fun getTequilaCocktails(): List<DrinkDto> {
-        return api.getTequilaCocktails()
+        return api.getTequilaCocktails().drinks
     }
 
     override suspend fun getRumCocktails(): List<DrinkDto> {
-        return api.getRumCocktails()
+        return api.getRumCocktails().drinks
     }
 
     override suspend fun getGinCocktails(): List<DrinkDto> {
-        return api.getGinCocktails()
+        return api.getGinCocktails().drinks
     }
 
     override suspend fun getAlcoholicCocktails(): List<DrinkDto> {
-        return api.getAlcoholicCocktails()
+        return api.getAlcoholicCocktails().drinks
     }
 
     override suspend fun getNonAlcoholicCocktails(): List<DrinkDto> {
-        return api.getNonAlcoholicCocktails()
+        return api.getNonAlcoholicCocktails().drinks
     }
 
     override suspend fun getCocktailById(drinkId: String): DrinkDetailDto {

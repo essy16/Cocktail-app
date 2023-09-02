@@ -2,7 +2,9 @@ package com.essycynthia.cocktailapp.data.remote.dto
 
 import com.essycynthia.cocktailapp.domain.model.Drink
 import com.essycynthia.cocktailapp.domain.model.DrinkDetail
+import kotlinx.serialization.Serializable
 
+@Serializable
 data class DrinkDto(
     val idDrink: String,
     val strDrink: String,
