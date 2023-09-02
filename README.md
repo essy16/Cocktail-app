@@ -1,4 +1,4 @@
-# Cocktail App
+# Cocktail App🍹
 
 ## Overview
 This project is a cocktail recipe app that provides users with a collection of cocktail recipes. It follows a modern Android architecture using Jetpack Compose for the user interface, ViewModel for managing data, Dagger/Hilt for dependency injection, Coil for image loading, Retrofit for network requests, and MVVM for a clean and maintainable codebase.
