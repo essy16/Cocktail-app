@@ -55,7 +55,7 @@ fun CocktailListScreen(
         ) {
             items(state.cocktails) { cocktail ->
                 CocktailListItem(cocktail = cocktail, onItemClick = {
-                    navController.navigate(Screen.CocktailDetailScreen.route + "/${cocktail.idDrink}")
+                    navController.navigate(Screen.CocktailDetailScreen.route + "?id=${cocktail.idDrink}")
                 })
 
 

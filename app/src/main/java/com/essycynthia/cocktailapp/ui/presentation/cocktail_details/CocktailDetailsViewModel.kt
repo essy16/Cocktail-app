@@ -25,10 +25,9 @@ class CocktailDetailsViewModel @Inject constructor(
 
 
     init {
-        savedStateHandle.get<String>(Constants.PARAM_COCKTAIL_ID)?.let { cocktailId ->
+        savedStateHandle.get<String>("id")?.let { cocktailId ->
             getCocktailDetails(cocktailId)
         }
-
     }
 
     private fun getCocktailDetails(cocktailId: String) {
