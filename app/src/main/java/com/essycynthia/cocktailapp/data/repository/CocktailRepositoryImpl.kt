@@ -32,7 +32,9 @@ class CocktailRepositoryImpl @Inject constructor(val api: CocktailApi) : Cocktai
     }
 
     override suspend fun getCocktailById(drinkId: String): DrinkDetailDto {
-        return api.getCocktailById(drinkId)
+        /**
+         * There is only one object in the list hence index 0
+         */
+        return api.getCocktailById(drinkId).drinks[0]
     }
-
 }

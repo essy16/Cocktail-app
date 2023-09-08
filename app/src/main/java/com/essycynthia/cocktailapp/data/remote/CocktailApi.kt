@@ -2,6 +2,7 @@ package com.essycynthia.cocktailapp.data.remote
 
 import com.essycynthia.cocktailapp.data.remote.dto.CockTailResponseDto
 import com.essycynthia.cocktailapp.data.remote.dto.DrinkDetailDto
+import com.essycynthia.cocktailapp.data.remote.dto.DrinkDetailResponseDto
 import retrofit2.http.GET
 import retrofit2.http.Path
 
@@ -25,5 +26,5 @@ interface CocktailApi {
     suspend fun getNonAlcoholicCocktails(): CockTailResponseDto
 
     @GET("api/json/v1/1/lookup.php?i={drinkId}")
-    suspend fun getCocktailById(@Path("drinkId") drinkId: String): DrinkDetailDto
+    suspend fun getCocktailById(@Path("drinkId") drinkId: String): DrinkDetailResponseDto
 }
