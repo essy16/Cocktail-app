@@ -10,9 +10,11 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
+import androidx.navigation.NavType
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
+import androidx.navigation.navArgument
 import com.essycynthia.cocktailapp.ui.presentation.Screen
 import com.essycynthia.cocktailapp.ui.presentation.Screen.CocktailListScreen.route
 import com.essycynthia.cocktailapp.ui.presentation.cocktail_details.components.CocktailDetailsScreen
@@ -40,7 +42,12 @@ class MainActivity : ComponentActivity() {
                             CocktailListScreen(navController = navController)
                         }
                         composable(
-                            route = Screen.CocktailDetailScreen.route
+                            route = Screen.CocktailDetailScreen.route + "?id={id}",
+                            arguments = listOf(
+                                navArgument("id"){
+                                    type = NavType.StringType
+                                }
+                            )
                         ){
                             CocktailDetailsScreen(navController = navController)
                         }
