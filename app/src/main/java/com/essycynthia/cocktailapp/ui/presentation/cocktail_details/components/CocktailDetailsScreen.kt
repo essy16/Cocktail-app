@@ -65,9 +65,25 @@ fun CocktailDetailsScreen(
                         horizontalArrangement = Arrangement.SpaceEvenly,
                         modifier = Modifier.fillMaxWidth()
                     ) {
-                        Text(text = cocktail.strIngredient1.toString())
-                        Text(text = cocktail.strIngredient2.toString())
-                        Text(text = cocktail.strIngredient3.toString())
+                        if (cocktail.strIngredient1.toString() == " "){
+                            Text(text = "")
+                        }else{
+                            Text(text = cocktail.strIngredient1.toString())
+                        }
+                        if (cocktail.strIngredient2.toString() == " "){
+                            Text(text = "")
+                        }else{
+                            Text(text = cocktail.strIngredient2.toString())
+                        }
+                        if (cocktail.strIngredient3.toString() == null){
+                            Text(text = "")
+
+                        }else{
+                            Text(text = cocktail.strIngredient3.toString())
+                        }
+
+
+
                     }
                     Row(
                         horizontalArrangement = Arrangement.SpaceEvenly,

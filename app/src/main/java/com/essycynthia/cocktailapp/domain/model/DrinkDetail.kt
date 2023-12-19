@@ -2,7 +2,7 @@ package com.essycynthia.cocktailapp.domain.model
 
 data class DrinkDetail(
     val idDrink: String?,
-    val strIngredient1: String?,
+    val strIngredient1: String? ,
     val strIngredient10: Any?,
     val strIngredient11: Any?,
     val strIngredient12: Any?,

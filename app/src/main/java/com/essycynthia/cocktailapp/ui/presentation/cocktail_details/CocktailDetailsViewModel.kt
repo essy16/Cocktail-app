@@ -31,6 +31,7 @@ class CocktailDetailsViewModel @Inject constructor(
     }
 
     private fun getCocktailDetails(cocktailId: String) {
+        _state.value = CocktailDetailsState(isLoading = true)
         getCocktailDetailsUseCase(cocktailId).onEach { result ->
             when (result) {
                 is Resource.Success -> {
@@ -48,6 +49,8 @@ class CocktailDetailsViewModel @Inject constructor(
                 is Resource.Loading -> {
                     _state.value = CocktailDetailsState(isLoading = true)
                 }
+
+                else -> {}
             }
         }.launchIn(viewModelScope)
     }
