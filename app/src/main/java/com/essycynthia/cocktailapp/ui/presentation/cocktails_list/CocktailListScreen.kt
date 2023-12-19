@@ -12,7 +12,10 @@ import androidx.compose.foundation.lazy.grid.LazyVerticalGrid
 import androidx.compose.foundation.lazy.grid.items
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.text.BasicTextField
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.outlined.Search
 import androidx.compose.material3.CircularProgressIndicator
+import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -23,7 +26,9 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.shadow
+import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
@@ -33,11 +38,22 @@ import com.essycynthia.cocktailapp.ui.presentation.cocktails_list.components.Coc
 
 @Composable
 fun CocktailListScreen(
-    navController: NavController,
-    viewModel: CocktailListViewModel = hiltViewModel()
+    navController: NavController, viewModel: CocktailListViewModel = hiltViewModel()
 ) {
+    val colorStops = arrayOf(
+        0.0f to Color(0xFFcc3366),
+        0.2f to Color(0xFFe4007c),
+        0.4f to Color(0xFFfc0fc0),
+        0.6f to Color(0xFFec3b83),
+        0.8f to Color(0xFFcf3476),
+        1.0f to Color(0xFFf49ac2)
+    )
     val state = viewModel.state.value
-    Column(Modifier.fillMaxSize()) {
+    Column(
+        Modifier
+            .fillMaxSize()
+            .background(Color(0xFFffe4e1))
+        ) {
         Row(Modifier.fillMaxWidth()) {
             SearchBar(
                 hint = "Search your desired cocktail...",
@@ -51,7 +67,7 @@ fun CocktailListScreen(
 
         }
         LazyVerticalGrid(
-            GridCells.Fixed(3), modifier = Modifier.fillMaxSize()
+            GridCells.Fixed(2), modifier = Modifier.fillMaxSize()
         ) {
             items(state.cocktails) { cocktail ->
                 CocktailListItem(cocktail = cocktail, onItemClick = {
@@ -90,6 +106,7 @@ fun CocktailListScreen(
 
 @Composable
 fun SearchBar(
+
     modifier: Modifier = Modifier, hint: String = "", onSearch: (String) -> Unit = {}
 ) {
     var text by remember {

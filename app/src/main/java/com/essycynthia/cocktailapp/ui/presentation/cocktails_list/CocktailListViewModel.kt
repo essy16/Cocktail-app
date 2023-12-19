@@ -40,6 +40,29 @@ class CocktailListViewModel @Inject constructor(
 //        getGinCocktails()
 //        getVodkaCocktails()
     }
+    private fun getTequilaCocktails() {
+        _state.value = CocktailsListState(isLoading = true)
+        getTequilaCocktailUseCase().onEach { result ->
+            when (result) {
+                is Resource.Success -> {
+                    _state.value = CocktailsListState(cocktails = result.data ?: emptyList())
+                    Log.d("TAG", "getTequilaCocktails:$_state ")
+                }
+
+                is Resource.Error -> {
+                    _state.value =
+                        CocktailsListState(error = result.message ?: "An unexpected error occurred")
+                }
+
+                is Resource.Loading -> {
+                    _state.value = CocktailsListState(isLoading = true)
+                }
+
+                else -> {}
+            }
+        }.launchIn(viewModelScope)
+    }
+
 
 //    private fun getAlcoholicCocktails() {
 //        getAlcoholicCocktailUseCase().onEach { result ->
@@ -137,27 +160,6 @@ class CocktailListViewModel @Inject constructor(
 //        }.launchIn(viewModelScope)
 //    }
 
-    private fun getTequilaCocktails() {
-        getTequilaCocktailUseCase().onEach { result ->
-            when (result) {
-                is Resource.Success -> {
-                    _state.value = CocktailsListState(cocktails = result.data ?: emptyList())
-                    Log.d("TAG", "getTequilaCocktails:$_state ")
-                }
-
-                is Resource.Error -> {
-                    _state.value =
-                        CocktailsListState(error = result.message ?: "An unexpected error occurred")
-                }
-
-                is Resource.Loading -> {
-                    _state.value = CocktailsListState(isLoading = true)
-                }
-
-                else -> {}
-            }
-        }.launchIn(viewModelScope)
-    }
 
     fun search() {
 
