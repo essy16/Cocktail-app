@@ -7,6 +7,8 @@ interface CocktailRepository {
     suspend fun getVodkaCocktails(): List<DrinkDto>
 
     suspend fun getTequilaCocktails(): List<DrinkDto>
+    suspend fun getWhiskeyCocktails(): List<DrinkDto>
+    suspend fun getBrandyCocktails(): List<DrinkDto>
 
     suspend fun getRumCocktails(): List<DrinkDto>
 
