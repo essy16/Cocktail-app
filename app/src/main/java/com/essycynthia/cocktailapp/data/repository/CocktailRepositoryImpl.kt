@@ -15,6 +15,14 @@ class CocktailRepositoryImpl @Inject constructor(val api: CocktailApi) : Cocktai
         return api.getTequilaCocktails().drinks
     }
 
+    override suspend fun getWhiskeyCocktails(): List<DrinkDto> {
+        return api.getWhiskeyCocktails().drinks
+    }
+
+    override suspend fun getBrandyCocktails(): List<DrinkDto> {
+        return api.getBrandyCocktails().drinks
+    }
+
     override suspend fun getRumCocktails(): List<DrinkDto> {
         return api.getRumCocktails().drinks
     }

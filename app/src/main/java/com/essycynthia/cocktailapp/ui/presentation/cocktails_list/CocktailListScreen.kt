@@ -66,17 +66,17 @@ fun CocktailListScreen(
             }
 
         }
-        LazyVerticalGrid(
-            GridCells.Fixed(2), modifier = Modifier.fillMaxSize()
-        ) {
-            items(state.cocktails) { cocktail ->
-                CocktailListItem(cocktail = cocktail, onItemClick = {
-                    navController.navigate(Screen.CocktailDetailScreen.route + "?id=${cocktail.idDrink}")
-                })
-
-
-            }
-        }
+//        LazyVerticalGrid(
+//            GridCells.Fixed(2), modifier = Modifier.fillMaxSize()
+//        ) {
+//            items(state.cocktails) { cocktail ->
+//                CocktailListItem(cocktail = cocktail, onItemClick = {
+//                    navController.navigate(Screen.CocktailDetailScreen.route + "?id=${cocktail.idDrink}")
+//                })
+//
+//
+//            }
+//        }
         if (state.error.isNotBlank()) {
             Text(
                 text = state.error,

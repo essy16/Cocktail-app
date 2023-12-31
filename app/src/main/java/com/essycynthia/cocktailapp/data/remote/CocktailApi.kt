@@ -13,6 +13,10 @@ interface CocktailApi {
 
     @GET("api/json/v1/1/filter.php?i=Tequila")
     suspend fun getTequilaCocktails(): CockTailResponseDto
+    @GET("api/json/v1/1/filter.php?i=brandy")
+    suspend fun getBrandyCocktails(): CockTailResponseDto
+    @GET("api/json/v1/1/filter.php?i=whiskey")
+    suspend fun getWhiskeyCocktails(): CockTailResponseDto
 
     @GET("api/json/v1/1/filter.php?i=Rum")
     suspend fun getRumCocktails(): CockTailResponseDto
