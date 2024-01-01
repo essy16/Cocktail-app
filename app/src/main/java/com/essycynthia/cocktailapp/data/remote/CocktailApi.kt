@@ -24,6 +24,10 @@ interface CocktailApi {
     @GET("api/json/v1/1/filter.php?i=Gin")
     suspend fun getGinCocktails(): CockTailResponseDto
 
+    @GET("api/json/v1/1/filter.php")
+    suspend fun searchCocktailByIngredient(@Query("i") ingredient: String): CockTailResponseDto
+    @GET("api/json/v1/1/search.php")
+    suspend fun searchCocktailByName(@Query("s") cocktailName: String): CockTailResponseDto
     @GET("api/json/v1/1/filter.php?a=Alcoholic")
     suspend fun getAlcoholicCocktails(): CockTailResponseDto
 
