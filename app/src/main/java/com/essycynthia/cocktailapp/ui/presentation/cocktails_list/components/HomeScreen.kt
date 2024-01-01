@@ -164,10 +164,16 @@ fun HomeScreen(
                             drawerState.open()
                         }
                     },
-                    modifier = Modifier
-                        .size(50.dp)
-                ) {
-                    Icon(imageVector = Icons.Default.Menu, contentDescription = "Menu")
+
+                    ) {
+                    Icon(
+                        imageVector = Icons.Default.Menu,
+                        contentDescription = "Menu",
+                        modifier = Modifier
+                            .size(40.dp),
+                        tint = tertiaryPurple
+
+                    )
                 }
                 Image(
                     painter = painterResource(R.drawable.no_profile_picture_pfp),

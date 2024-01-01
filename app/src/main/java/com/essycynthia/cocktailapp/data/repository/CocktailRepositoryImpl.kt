@@ -1,6 +1,7 @@
 package com.essycynthia.cocktailapp.data.repository
 
 import com.essycynthia.cocktailapp.data.remote.CocktailApi
+import com.essycynthia.cocktailapp.data.remote.dto.CockTailResponseDto
 import com.essycynthia.cocktailapp.data.remote.dto.DrinkDetailDto
 import com.essycynthia.cocktailapp.data.remote.dto.DrinkDto
 import com.essycynthia.cocktailapp.domain.repository.CocktailRepository
@@ -44,5 +45,13 @@ class CocktailRepositoryImpl @Inject constructor(val api: CocktailApi) : Cocktai
          * There is only one object in the list hence index 0
          */
         return api.getCocktailById(drinkId).drinks[0]
+    }
+
+    override suspend fun searchCocktailByIngredient(ingredient: String): CockTailResponseDto {
+        return api.searchCocktailByIngredient(ingredient)
+    }
+
+    override suspend fun searchCocktailByName(cocktailName: String): CockTailResponseDto {
+        return api.searchCocktailByName(cocktailName)
     }
 }
