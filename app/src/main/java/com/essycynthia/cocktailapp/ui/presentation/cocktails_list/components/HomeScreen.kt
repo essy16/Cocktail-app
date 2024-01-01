@@ -2,6 +2,7 @@ package com.essycynthia.cocktailapp.ui.presentation.cocktails_list.components
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
+import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -23,6 +24,7 @@ import androidx.compose.foundation.text.BasicTextField
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Favorite
 import androidx.compose.material.icons.filled.FavoriteBorder
+import androidx.compose.material.icons.filled.Menu
 import androidx.compose.material.icons.filled.Person
 import androidx.compose.material.icons.filled.Search
 import androidx.compose.material.icons.outlined.Person
@@ -33,6 +35,7 @@ import androidx.compose.material3.DrawerValue
 import androidx.compose.material3.ElevatedCard
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
+import androidx.compose.material3.IconButton
 import androidx.compose.material3.ModalDrawerSheet
 import androidx.compose.material3.ModalNavigationDrawer
 import androidx.compose.material3.NavigationDrawerItem
@@ -50,7 +53,9 @@ import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.clip
 import androidx.compose.ui.draw.shadow
+import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.layout.ContentScale
@@ -67,7 +72,9 @@ import com.essycynthia.cocktailapp.R
 import com.essycynthia.cocktailapp.ui.presentation.Screen
 import com.essycynthia.cocktailapp.ui.presentation.cocktails_list.CocktailListViewModel
 import com.essycynthia.cocktailapp.ui.presentation.cocktails_list.SearchBar
+import com.essycynthia.cocktailapp.ui.theme.PurpleWhite
 import com.essycynthia.cocktailapp.ui.theme.categoriesText
+import com.essycynthia.cocktailapp.ui.theme.tertiaryPurple
 import kotlinx.coroutines.launch
 
 @OptIn(ExperimentalMaterial3Api::class)
@@ -77,6 +84,7 @@ fun HomeScreen(
     viewModel: CocktailListViewModel = hiltViewModel()
 ) {
     val state = viewModel.state.collectAsState().value
+    val brush = Brush.horizontalGradient(listOf(tertiaryPurple, PurpleWhite))
     val drawerState = rememberDrawerState(initialValue = DrawerValue.Closed)
     val scope = rememberCoroutineScope()
     var selectedItemIndex by rememberSaveable {
@@ -89,7 +97,7 @@ fun HomeScreen(
                 selectedIcon = Icons.Filled.Person,
                 unselectedIcon = Icons.Outlined.Person
             ) {
-
+                navController.navigate(Screen.HomeScreen.route)
             },
 
             NavigationItem(
@@ -98,7 +106,7 @@ fun HomeScreen(
                 unselectedIcon = Icons.Outlined.Search
 
             ) {
-
+                navController.navigate(Screen.SearchScreen.route)
             },
 
             NavigationItem(
@@ -106,20 +114,17 @@ fun HomeScreen(
                 selectedIcon = Icons.Filled.Favorite,
                 unselectedIcon = Icons.Filled.FavoriteBorder
             ) {
-
-
+                navController.navigate(Screen.FavoritesScreen.route)
             },
 
             )
     }
 
     ModalNavigationDrawer(
-
+        drawerState = drawerState,
         drawerContent = {
 
             ModalDrawerSheet {
-
-                Spacer(modifier = Modifier.height(16.dp))
 
                 items.forEachIndexed { index, item ->
                     NavigationDrawerItem(
@@ -128,7 +133,7 @@ fun HomeScreen(
                         },
                         selected = index == selectedItemIndex,
                         onClick = {
-                            item.clickable
+                            item.clickable() // Corrected line
                             selectedItemIndex = index
                             scope.launch {
                                 drawerState.close()
@@ -148,278 +153,303 @@ fun HomeScreen(
                 }
             }
 
-        },
-        drawerState = drawerState
-    ){ Column(modifier = Modifier.fillMaxSize()) {
-        Column(Modifier.fillMaxWidth()) {
-            Text(
-                text = "Please choose ", fontFamily = FontFamily(Font(R.font.carme)),
-                color = categoriesText
-            )
-            Text(
-                text = "Your cocktail", fontFamily = FontFamily(Font(R.font.lalezar)),
-                color = categoriesText, fontWeight = FontWeight.ExtraBold
-            )
         }
 
+    ) {
+        Column(modifier = Modifier.fillMaxSize()) {
+            Row(Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.SpaceBetween) {
+                IconButton(
+                    onClick = {
+                        scope.launch {
+                            drawerState.open()
+                        }
+                    },
+                    modifier = Modifier
+                        .size(50.dp)
+                ) {
+                    Icon(imageVector = Icons.Default.Menu, contentDescription = "Menu")
+                }
+                Image(
+                    painter = painterResource(R.drawable.no_profile_picture_pfp),
+                    contentDescription = "Circle Image",
+                    contentScale = ContentScale.Crop,
+                    modifier = Modifier
+                        .size(50.dp)
+                        .clip(CircleShape)
+                        .border(5.dp, brush = brush, CircleShape)//optional
+                )
 
-        Column(
-            modifier = Modifier
-                .fillMaxWidth()
-                .height(180.dp)
-        ) {
-            Row {
+            }
+            Column(Modifier.fillMaxWidth()) {
                 Text(
-                    text = "Categories",
-                    fontFamily = FontFamily(Font(R.font.carme)),
+                    text = "Please choose ", fontFamily = FontFamily(Font(R.font.carme)),
                     color = categoriesText
                 )
-            }
-            LazyRow() {
-                item() {
-                    Column(
-                        horizontalAlignment = Alignment.CenterHorizontally
-                    ) {
-                        ElevatedCard(
-                            elevation = CardDefaults.cardElevation(
-                                defaultElevation = 6.dp
-                            ),
-                            modifier = Modifier
-                                .width(150.dp)
-                                .height(100.dp)
-                        ) {
-                            Image(
-                                painter = painterResource(R.drawable.whiskey_cocktails),
-                                contentDescription = "Whiskey cocktails",
-                                contentScale = ContentScale.Crop,
-
-                                )
-
-                        }
-
-                        ElevatedCard(
-                            elevation = CardDefaults.cardElevation(
-                                defaultElevation = 6.dp
-                            ),
-                            modifier = Modifier
-                                .width(140.dp)
-                                .height(20.dp)
-
-
-                        ) {
-                            Text(
-                                text = "Whiskey Cocktails",
-                                fontFamily = FontFamily(Font(R.font.carme)),
-                                modifier = Modifier.fillMaxWidth(),
-                                color = categoriesText
-                            )
-                        }
-                    }
-
-
-                    Spacer(modifier = Modifier.width(10.dp))
-                }
-
-                item {
-                    Column(horizontalAlignment = Alignment.CenterHorizontally) {
-                        ElevatedCard(
-                            elevation = CardDefaults.cardElevation(
-                                defaultElevation = 6.dp
-                            ),
-                            modifier = Modifier
-                                .width(150.dp)
-                                .height(100.dp)
-                        ) {
-                            Image(
-                                painter = painterResource(R.drawable.rum_cocktails),
-                                contentDescription = "Rum cocktails",
-                                contentScale = ContentScale.Crop,
-
-                                )
-                        }
-                        ElevatedCard(
-                            elevation = CardDefaults.cardElevation(
-                                defaultElevation = 6.dp
-                            ),
-                            modifier = Modifier
-                                .width(120.dp)
-                                .height(20.dp)
-                        ) {
-                            Text(
-                                text = "Rum cocktails",
-                                fontFamily = FontFamily(Font(R.font.carme)),
-                                color = categoriesText
-                            )
-                        }
-                    }
-
-                    Spacer(modifier = Modifier.width(10.dp))
-                }
-                item {
-                    Column(horizontalAlignment = Alignment.CenterHorizontally) {
-                        ElevatedCard(
-                            elevation = CardDefaults.cardElevation(
-                                defaultElevation = 6.dp
-                            ),
-                            modifier = Modifier
-                                .width(150.dp)
-                                .height(100.dp)
-                        ) {
-                            Image(
-                                painter = painterResource(R.drawable.vodka_cocktails),
-                                contentDescription = "Vodka cocktails",
-                                contentScale = ContentScale.Crop,
-
-                                )
-                        }
-                        ElevatedCard(
-                            elevation = CardDefaults.cardElevation(
-                                defaultElevation = 6.dp
-                            ),
-                            modifier = Modifier
-                                .width(150.dp)
-                                .height(20.dp)
-                        ) {
-                            Text(
-                                text = "Vodka cocktails",
-                                fontFamily = FontFamily(Font(R.font.carme)),
-                                color = categoriesText
-                            )
-                        }
-                    }
-
-                    Spacer(modifier = Modifier.width(10.dp))
-                }
-                item {
-                    Column(horizontalAlignment = Alignment.CenterHorizontally) {
-                        ElevatedCard(
-                            elevation = CardDefaults.cardElevation(
-                                defaultElevation = 6.dp
-                            ),
-                            modifier = Modifier
-                                .width(150.dp)
-                                .height(100.dp)
-                        ) {
-                            Image(
-                                painter = painterResource(R.drawable.tequila_cocktails),
-                                contentDescription = "Tequila cocktails",
-                                contentScale = ContentScale.Crop,
-
-                                )
-                        }
-                        ElevatedCard(
-                            elevation = CardDefaults.cardElevation(
-                                defaultElevation = 6.dp
-                            ),
-                            modifier = Modifier
-                                .width(140.dp)
-                                .height(20.dp)
-                        ) {
-                            Text(
-                                text = "Tequila cocktails",
-                                fontFamily = FontFamily(Font(R.font.carme)),
-                                color = categoriesText
-                            )
-                        }
-                    }
-
-                }
+                Text(
+                    text = "Your cocktail", fontFamily = FontFamily(Font(R.font.lalezar)),
+                    color = categoriesText, fontWeight = FontWeight.ExtraBold
+                )
             }
 
+
+            Column(
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .height(180.dp)
+            ) {
+                Row {
+                    Text(
+                        text = "Categories",
+                        fontFamily = FontFamily(Font(R.font.carme)),
+                        color = categoriesText
+                    )
+                }
+                LazyRow() {
+                    item() {
+                        Column(
+                            horizontalAlignment = Alignment.CenterHorizontally
+                        ) {
+                            ElevatedCard(
+                                elevation = CardDefaults.cardElevation(
+                                    defaultElevation = 6.dp
+                                ),
+                                modifier = Modifier
+                                    .width(150.dp)
+                                    .height(100.dp)
+                            ) {
+                                Image(
+                                    painter = painterResource(R.drawable.whiskey_cocktails),
+                                    contentDescription = "Whiskey cocktails",
+                                    contentScale = ContentScale.Crop,
+
+                                    )
+
+                            }
+
+                            ElevatedCard(
+                                elevation = CardDefaults.cardElevation(
+                                    defaultElevation = 6.dp
+                                ),
+                                modifier = Modifier
+                                    .width(140.dp)
+                                    .height(20.dp)
+
+
+                            ) {
+                                Text(
+                                    text = "Whiskey Cocktails",
+                                    fontFamily = FontFamily(Font(R.font.carme)),
+                                    modifier = Modifier.fillMaxWidth(),
+                                    color = categoriesText
+                                )
+                            }
+                        }
+
+
+                        Spacer(modifier = Modifier.width(10.dp))
+                    }
+
+                    item {
+                        Column(horizontalAlignment = Alignment.CenterHorizontally) {
+                            ElevatedCard(
+                                elevation = CardDefaults.cardElevation(
+                                    defaultElevation = 6.dp
+                                ),
+                                modifier = Modifier
+                                    .width(150.dp)
+                                    .height(100.dp)
+                            ) {
+                                Image(
+                                    painter = painterResource(R.drawable.rum_cocktails),
+                                    contentDescription = "Rum cocktails",
+                                    contentScale = ContentScale.Crop,
+
+                                    )
+                            }
+                            ElevatedCard(
+                                elevation = CardDefaults.cardElevation(
+                                    defaultElevation = 6.dp
+                                ),
+                                modifier = Modifier
+                                    .width(120.dp)
+                                    .height(20.dp)
+                            ) {
+                                Text(
+                                    text = "Rum cocktails",
+                                    fontFamily = FontFamily(Font(R.font.carme)),
+                                    color = categoriesText
+                                )
+                            }
+                        }
+
+                        Spacer(modifier = Modifier.width(10.dp))
+                    }
+                    item {
+                        Column(horizontalAlignment = Alignment.CenterHorizontally) {
+                            ElevatedCard(
+                                elevation = CardDefaults.cardElevation(
+                                    defaultElevation = 6.dp
+                                ),
+                                modifier = Modifier
+                                    .width(150.dp)
+                                    .height(100.dp)
+                            ) {
+                                Image(
+                                    painter = painterResource(R.drawable.vodka_cocktails),
+                                    contentDescription = "Vodka cocktails",
+                                    contentScale = ContentScale.Crop,
+
+                                    )
+                            }
+                            ElevatedCard(
+                                elevation = CardDefaults.cardElevation(
+                                    defaultElevation = 6.dp
+                                ),
+                                modifier = Modifier
+                                    .width(150.dp)
+                                    .height(20.dp)
+                            ) {
+                                Text(
+                                    text = "Vodka cocktails",
+                                    fontFamily = FontFamily(Font(R.font.carme)),
+                                    color = categoriesText
+                                )
+                            }
+                        }
+
+                        Spacer(modifier = Modifier.width(10.dp))
+                    }
+                    item {
+                        Column(horizontalAlignment = Alignment.CenterHorizontally) {
+                            ElevatedCard(
+                                elevation = CardDefaults.cardElevation(
+                                    defaultElevation = 6.dp
+                                ),
+                                modifier = Modifier
+                                    .width(150.dp)
+                                    .height(100.dp)
+                            ) {
+                                Image(
+                                    painter = painterResource(R.drawable.tequila_cocktails),
+                                    contentDescription = "Tequila cocktails",
+                                    contentScale = ContentScale.Crop,
+
+                                    )
+                            }
+                            ElevatedCard(
+                                elevation = CardDefaults.cardElevation(
+                                    defaultElevation = 6.dp
+                                ),
+                                modifier = Modifier
+                                    .width(140.dp)
+                                    .height(20.dp)
+                            ) {
+                                Text(
+                                    text = "Tequila cocktails",
+                                    fontFamily = FontFamily(Font(R.font.carme)),
+                                    color = categoriesText
+                                )
+                            }
+                        }
+
+                    }
+                }
+
+            }
+            Spacer(modifier = Modifier.height(10.dp))
+            LazyColumn(
+                modifier = Modifier.fillMaxSize(),
+                contentPadding = PaddingValues(horizontal = 16.dp, vertical = 8.dp),
+                verticalArrangement = Arrangement.spacedBy(12.dp),
+            ) {
+                item {
+                    Text(
+                        text = "Whiskey cocktails", color = categoriesText,
+                        fontWeight = FontWeight.Bold,
+                        fontSize = 24.sp, modifier = Modifier.padding(horizontal = 20.dp)
+                    )
+                    LazyRow {
+                        items(state.whiskeyCocktails) { cocktail ->
+                            CocktailListItem(cocktail = cocktail, onItemClick = {
+                                navController.navigate(Screen.CocktailDetailScreen.route + "?id=${cocktail.idDrink}")
+                            })
+                        }
+                    }
+                }
+                item {
+                    Text(
+                        text = "Tequila cocktails", color = categoriesText,
+                        fontWeight = FontWeight.Bold,
+                        fontSize = 24.sp, modifier = Modifier.padding(horizontal = 20.dp)
+                    )
+                    LazyRow {
+                        items(state.tequilaCocktails) { cocktail ->
+                            CocktailListItem(cocktail = cocktail, onItemClick = {
+                                navController.navigate(Screen.CocktailDetailScreen.route + "?id=${cocktail.idDrink}")
+                            })
+                        }
+                    }
+                }
+                item {
+                    Text(
+                        text = "Vodka cocktails", color = categoriesText,
+                        fontWeight = FontWeight.Bold,
+                        fontSize = 24.sp, modifier = Modifier.padding(horizontal = 20.dp)
+                    )
+                    LazyRow {
+                        items(state.vodkaCocktails) { cocktail ->
+                            CocktailListItem(cocktail = cocktail, onItemClick = {
+                                navController.navigate(Screen.CocktailDetailScreen.route + "?id=${cocktail.idDrink}")
+                            })
+                        }
+                    }
+                }
+                item {
+                    Text(
+                        text = "Gin cocktails", color = categoriesText,
+                        fontWeight = FontWeight.Bold,
+                        fontSize = 24.sp, modifier = Modifier.padding(horizontal = 20.dp)
+                    )
+                    LazyRow {
+                        items(state.ginCocktails) { cocktail ->
+                            CocktailListItem(cocktail = cocktail, onItemClick = {
+                                navController.navigate(Screen.CocktailDetailScreen.route + "?id=${cocktail.idDrink}")
+                            })
+                        }
+                    }
+                }
+                item {
+                    Text(
+                        text = "Rum cocktails", color = categoriesText,
+                        fontWeight = FontWeight.Bold,
+                        fontSize = 24.sp, modifier = Modifier.padding(horizontal = 20.dp)
+                    )
+                    LazyRow {
+                        items(state.rumCocktails) { cocktail ->
+                            CocktailListItem(cocktail = cocktail, onItemClick = {
+                                navController.navigate(Screen.CocktailDetailScreen.route + "?id=${cocktail.idDrink}")
+                            })
+                        }
+                    }
+                }
+                item {
+                    Text(
+                        text = "Brandy cocktails", color = categoriesText,
+                        fontWeight = FontWeight.Bold,
+                        fontSize = 24.sp, modifier = Modifier.padding(horizontal = 20.dp)
+                    )
+                    LazyRow {
+                        items(state.brandyCocktails) { cocktail ->
+                            CocktailListItem(cocktail = cocktail, onItemClick = {
+                                navController.navigate(Screen.CocktailDetailScreen.route + "?id=${cocktail.idDrink}")
+                            })
+                        }
+                    }
+                }
+
+            }
         }
-        Spacer(modifier = Modifier.height(10.dp))
-        LazyColumn(
-            modifier = Modifier.fillMaxSize(),
-            contentPadding = PaddingValues(horizontal = 16.dp, vertical = 8.dp),
-            verticalArrangement = Arrangement.spacedBy(12.dp),
-        ) {
-            item {
-                Text(
-                    text = "Whiskey cocktails", color = categoriesText,
-                    fontWeight = FontWeight.Bold,
-                    fontSize = 24.sp, modifier = Modifier.padding(horizontal = 20.dp)
-                )
-                LazyRow {
-                    items(state.whiskeyCocktails) { cocktail ->
-                        CocktailListItem(cocktail = cocktail, onItemClick = {
-                            navController.navigate(Screen.CocktailDetailScreen.route + "?id=${cocktail.idDrink}")
-                        })
-                    }
-                }
-            }
-            item {
-                Text(
-                    text = "Tequila cocktails", color = categoriesText,
-                    fontWeight = FontWeight.Bold,
-                    fontSize = 24.sp, modifier = Modifier.padding(horizontal = 20.dp)
-                )
-                LazyRow {
-                    items(state.tequilaCocktails) { cocktail ->
-                        CocktailListItem(cocktail = cocktail, onItemClick = {
-                            navController.navigate(Screen.CocktailDetailScreen.route + "?id=${cocktail.idDrink}")
-                        })
-                    }
-                }
-            }
-            item {
-                Text(
-                    text = "Vodka cocktails", color = categoriesText,
-                    fontWeight = FontWeight.Bold,
-                    fontSize = 24.sp, modifier = Modifier.padding(horizontal = 20.dp)
-                )
-                LazyRow {
-                    items(state.vodkaCocktails) { cocktail ->
-                        CocktailListItem(cocktail = cocktail, onItemClick = {
-                            navController.navigate(Screen.CocktailDetailScreen.route + "?id=${cocktail.idDrink}")
-                        })
-                    }
-                }
-            }
-            item {
-                Text(
-                    text = "Gin cocktails", color = categoriesText,
-                    fontWeight = FontWeight.Bold,
-                    fontSize = 24.sp, modifier = Modifier.padding(horizontal = 20.dp)
-                )
-                LazyRow {
-                    items(state.ginCocktails) { cocktail ->
-                        CocktailListItem(cocktail = cocktail, onItemClick = {
-                            navController.navigate(Screen.CocktailDetailScreen.route + "?id=${cocktail.idDrink}")
-                        })
-                    }
-                }
-            }
-            item {
-                Text(
-                    text = "Rum cocktails", color = categoriesText,
-                    fontWeight = FontWeight.Bold,
-                    fontSize = 24.sp, modifier = Modifier.padding(horizontal = 20.dp)
-                )
-                LazyRow {
-                    items(state.rumCocktails) { cocktail ->
-                        CocktailListItem(cocktail = cocktail, onItemClick = {
-                            navController.navigate(Screen.CocktailDetailScreen.route + "?id=${cocktail.idDrink}")
-                        })
-                    }
-                }
-            }
-            item {
-                Text(
-                    text = "Brandy cocktails", color = categoriesText,
-                    fontWeight = FontWeight.Bold,
-                    fontSize = 24.sp, modifier = Modifier.padding(horizontal = 20.dp)
-                )
-                LazyRow {
-                    items(state.brandyCocktails) { cocktail ->
-                        CocktailListItem(cocktail = cocktail, onItemClick = {
-                            navController.navigate(Screen.CocktailDetailScreen.route + "?id=${cocktail.idDrink}")
-                        })
-                    }
-                }
-            }
-
-        }
-    }}
+    }
 
 
 }
@@ -432,40 +462,3 @@ data class NavigationItem(
 
 )
 
-@Composable
-fun SearchBar(
-
-    modifier: Modifier = Modifier, hint: String = "", onSearch: (String) -> Unit = {}
-) {
-    var text by remember {
-        mutableStateOf("")
-    }
-    var isHintDisplayed by remember {
-        mutableStateOf(hint != "")
-    }
-
-    Box(modifier = modifier) {
-        BasicTextField(
-            value = text,
-            onValueChange = {
-                text = it
-                onSearch(it)
-            },
-            maxLines = 1,
-            singleLine = true,
-            modifier = Modifier
-                .fillMaxWidth()
-                .shadow(5.dp, CircleShape)
-                .background(Color.White, CircleShape)
-                .padding(horizontal = 20.dp, vertical = 12.dp)
-
-        )
-        if (isHintDisplayed) {
-            Text(
-                text = hint,
-                color = Color.LightGray,
-                modifier = Modifier.padding(horizontal = 20.dp, vertical = 12.dp)
-            )
-        }
-    }
-}

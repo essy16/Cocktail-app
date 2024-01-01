@@ -15,11 +15,13 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import androidx.navigation.navArgument
+import com.essycynthia.cocktailapp.ui.favorites.FavoriteScreen
 import com.essycynthia.cocktailapp.ui.presentation.Screen
 import com.essycynthia.cocktailapp.ui.presentation.Screen.CocktailListScreen.route
 import com.essycynthia.cocktailapp.ui.presentation.cocktail_details.components.CocktailDetailsScreen
 import com.essycynthia.cocktailapp.ui.presentation.cocktails_list.CocktailListScreen
 import com.essycynthia.cocktailapp.ui.presentation.cocktails_list.components.HomeScreen
+import com.essycynthia.cocktailapp.ui.presentation.search.SearchScreen
 import com.essycynthia.cocktailapp.ui.theme.CocktailAppTheme
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -36,24 +38,34 @@ class MainActivity : ComponentActivity() {
                     color = MaterialTheme.colorScheme.background
                 ) {
                     val navController = rememberNavController()
-//                    NavHost(navController = navController, startDestination = Screen.CocktailListScreen.route){
-//                        composable(
-//                            route = Screen.CocktailListScreen.route
-//                        ){
-//                            CocktailListScreen(navController = navController)
-//                        }
-//                        composable(
-//                            route = Screen.CocktailDetailScreen.route + "?id={id}",
-//                            arguments = listOf(
-//                                navArgument("id"){
-//                                    type = NavType.StringType
-//                                }
-//                            )
-//                        ){
-//                            CocktailDetailsScreen(navController = navController)
-//                        }
-//                    }
-                    HomeScreen(navController = navController)
+                    NavHost(navController = navController, startDestination = Screen.HomeScreen.route){
+                        composable(
+                            route = Screen.HomeScreen.route
+                        ){
+                            HomeScreen(navController = navController)
+                        }
+                        composable(
+                            route = Screen.CocktailDetailScreen.route + "?id={id}",
+                            arguments = listOf(
+                                navArgument("id"){
+                                    type = NavType.StringType
+                                }
+                            )
+                        ){
+                            CocktailDetailsScreen(navController = navController)
+                        }
+                        composable(
+                            route = Screen.SearchScreen.route
+                        ){
+                            SearchScreen()
+                        }
+                        composable(
+                            route = Screen.FavoritesScreen.route
+                        ){
+                            FavoriteScreen()
+                        }
+                    }
+//                    HomeScreen(navController = navController)
                 }
             }
         }
