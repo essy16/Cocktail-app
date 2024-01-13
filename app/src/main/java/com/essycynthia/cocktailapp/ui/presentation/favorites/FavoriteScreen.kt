@@ -1,4 +1,4 @@
-package com.essycynthia.cocktailapp.ui.favorites
+package com.essycynthia.cocktailapp.ui.presentation.favorites
 
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
