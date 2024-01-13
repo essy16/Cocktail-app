@@ -15,13 +15,14 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import androidx.navigation.navArgument
-import com.essycynthia.cocktailapp.ui.favorites.FavoriteScreen
+import com.essycynthia.cocktailapp.ui.presentation.favorites.FavoriteScreen
 import com.essycynthia.cocktailapp.ui.presentation.Screen
 import com.essycynthia.cocktailapp.ui.presentation.Screen.CocktailListScreen.route
 import com.essycynthia.cocktailapp.ui.presentation.cocktail_details.components.CocktailDetailsScreen
 import com.essycynthia.cocktailapp.ui.presentation.cocktails_list.CocktailListScreen
 import com.essycynthia.cocktailapp.ui.presentation.cocktails_list.components.HomeScreen
 import com.essycynthia.cocktailapp.ui.presentation.search.SearchScreen
+import com.essycynthia.cocktailapp.ui.presentation.splash.SplashScreen
 import com.essycynthia.cocktailapp.ui.theme.CocktailAppTheme
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -38,7 +39,12 @@ class MainActivity : ComponentActivity() {
                     color = MaterialTheme.colorScheme.background
                 ) {
                     val navController = rememberNavController()
-                    NavHost(navController = navController, startDestination = Screen.HomeScreen.route){
+                    NavHost(navController = navController, startDestination = Screen.SplashScreen.route){
+                        composable(
+                            route = Screen.SplashScreen.route
+                        ){
+                            SplashScreen(navController = navController)
+                        }
                         composable(
                             route = Screen.HomeScreen.route
                         ){
