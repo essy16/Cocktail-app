@@ -35,6 +35,18 @@ The project follows the principles of Clean Architecture, consisting of three ma
 - [Jetpack Compose](https://developer.android.com/jetpack/compose): For building the UI.
 - [ViewModel](https://developer.android.com/topic/libraries/architecture/viewmodel): For managing UI-related data.
 - [Kotlin Coroutines](https://developer.android.com/kotlin/coroutines): For handling asynchronous operations.
+## Firebase Integration
+- **Firebase Authentication**: Secure user authentication for enhanced app functionality.
+
+## SplashScreen API
+- **SplashScreen API**: Improved app startup experience with a custom animated splash screen.
+
+## SCREENSHOTS
+![Introduction Screen](C:\Users\essy\Documents\Screenshot_20240121_135544_Cocktail app.jpg)
+![Log in Screen](C:\Users\essy\Documents\Screenshot_20240121_135602_Cocktail app.jpg)
+![Sign up Screen](C:\Users\essy\Documents\Screenshot_20240121_135608_Cocktail app.jpg)
+![Home Screen](C:\Users\essy\Documents\Screenshot_20240121_135657_Cocktail app.jpg)
+![Search Screen](C:\Users\essy\Documents\Screenshot_20240121_135710_Cocktail app.jpg)
 
 ## Architecture
 The app is built using the Modular MVVM architectural pattern and makes heavy use of a couple of Android Jetpack components. MVVM allows for the separation of concern which also makes testing easier.
