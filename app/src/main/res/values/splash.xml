@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <style name="Theme.App.Starting" parent="Theme.SplashScreen">
+<!--        <item name="windowSplashScreenBackground">#A369C6</item>-->
+
+        <item name="windowSplashScreenAnimatedIcon">
+            @drawable/shaker_neon_logo_cocktail_party_sign_vector_image_on_vectorstock
+        </item>
+        <item name="postSplashScreenTheme">@style/Theme.CocktailApp</item>
+    </style>
+</resources>
