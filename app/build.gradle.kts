@@ -1,9 +1,12 @@
+import org.jetbrains.kotlin.psi.psiUtil.canPlaceAfterSimpleNameEntry
+
 plugins {
     id("com.android.application")
     id("org.jetbrains.kotlin.android")
     kotlin("kapt")
     id("dagger.hilt.android.plugin")
     id ("kotlin-parcelize")
+    id("com.google.gms.google-services")
 
 }
 
@@ -71,6 +74,8 @@ dependencies {
     implementation("androidx.compose.material3:material3")
     implementation ("androidx.navigation:navigation-compose:2.5.3")
 
+    //Splashscreen
+    implementation ("androidx.core:core-splashscreen:1.0.0")
 
     //Serialization
     implementation("org.jetbrains.kotlinx:kotlinx-serialization-json:1.5.1")
@@ -101,9 +106,12 @@ dependencies {
     //Dagger-Hilt dependencies
 
     implementation("com.google.dagger:hilt-android:2.46.1")
+    implementation("com.google.firebase:firebase-auth:22.3.0")
     kapt("com.google.dagger:hilt-android-compiler:2.46.1")
     implementation("androidx.hilt:hilt-navigation-compose:1.0.0")
 
+    //Icons
+    implementation ("androidx.compose.material:material-icons-extended-android:1.5.0-beta03")
 
     // Retrofit
     implementation("com.squareup.retrofit2:retrofit:2.9.0")

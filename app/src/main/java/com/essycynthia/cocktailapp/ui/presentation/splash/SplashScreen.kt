@@ -97,7 +97,7 @@ fun SplashScreen(navController: NavController) {
             Card(
                 Modifier
                     .clickable {
-                        navController.navigate(Screen.HomeScreen.route)
+                        navController.navigate(Screen.AuthenticationScreen.route)
                     }
                     .height(35.dp)
                     .padding(horizontal = 140.dp),

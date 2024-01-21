@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "651156268710",
+    "project_id": "cocktail-app-55482",
+    "storage_bucket": "cocktail-app-55482.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:651156268710:android:126cb7e86731c56255b667",
+        "android_client_info": {
+          "package_name": "com.essycynthia.cocktailapp"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDplN1n1qOeM_v18czJsoTh6dX702-xnIE"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
